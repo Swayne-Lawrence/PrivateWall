@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+    <title>Document</title>
+</head>
+<body>
+    {%with messages=get_flashed_messages()%}
+        {%if messages%}
+            {%for message in messages%}
+                <p>{{message}}</p>
+            {%endfor%}
+        {%endif%}
+    {%endwith%}
+    
+    <div id="container">
+        <div class="body">
+            <form action="/reg_form" method="post">
+                <div>
+                    <label for="first_name">First Name</label>
+                    <input type="text" name="first_name">
+                </div>
+                <div>
+                    <label for="last_name">Last Name</label>
+                    <input type="text" name="last_name">
+                </div>
+                <div>
+                    <label for="email">email</label>
+                    <input type="email" name="email">
+                </div>
+                <div>
+                    <label for="password">password</label>
+                    <input type="password" name="password">
+                </div>
+                <div>
+                    <label for="confirm">confirm password</label>
+                    <input type="password" name="confirm">
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="body">
+            <form action="/login_form", method="post">
+            <div> 
+                    <label for="email">email</label>
+                    <input type="email" name="email">
+            </div>
+            <div> 
+                <label for="password">password</label>
+                <input type="password" name="password">
+        </div>
+            <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    
+</body>
+</html>

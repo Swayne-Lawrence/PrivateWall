@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style2.css')}}">
+    <title>Document</title>
+</head>
+<body>
+        <div id="container">
+            <div id="header">
+                <h1>Coding Dojo Wall</h1>
+                <p>Welcome, {{user.first_name}}</p>
+                <a href="/logout">logout</a>
+            </div>
+            <div id="body">
+            <div class="section">
+                <h2>Messages</h2>
+                {%for db in user.messages%}
+                <p>{{db.sender}}:         <a href="/delete_msg/{{db.id}}" id="del">delete</a></p>
+                <p>{{db.message}}</p>
+                <hr>
+                {%endfor%}
+                
+            </div>
+            <div class="section">
+                <h2>Send Messages</h2>
+                {%with messages=get_flashed_messages()%}
+                {%if messages%}
+                    {%for message in messages%}
+                        <p>{{message}}</p>
+                    {%endfor%}
+                {%endif%}
+            {%endwith%}
+                <form action="/msg_form" method="post">
+                    <select name="users_id" id="">
+                        {%for db in all_users%}
+                        {%if user.id==db.id%}
+                        <option value="" selected>Select</option>
+                        {%else%}
+                            <option value="{{db.id}}">{{db.first_name}} {{db.last_name}}</option>
+                        {%endif%}
+                        {%endfor%}
+                    </select>
+                    <textarea name="message" id="" cols="30" rows="10" placeholder="Type Message"></textarea>
+                    <input type="hidden" name="sender" value="{{user.first_name}}">
+                    <button type="submit">Send</button>
+                </form>
+            </div>
+            </div><!--end of body-->
+        </div><!--end of container-->
+</body>
+</html>
